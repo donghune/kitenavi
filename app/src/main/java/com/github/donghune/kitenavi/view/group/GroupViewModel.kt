@@ -24,7 +24,7 @@ class GroupViewModel(
                 .onStart { updateLoadState(LoadState.Loading) }
                 .onCompletion { updateLoadState(LoadState.Complete) }
                 .catch { updateLoadState(LoadState.Error(it)) }
-                .launchIn(viewModelScope)
+                .collect()
         }
     }
 
@@ -34,7 +34,7 @@ class GroupViewModel(
                 .onStart { updateLoadState(LoadState.Loading) }
                 .onCompletion { updateLoadState(LoadState.Complete) }
                 .catch { updateLoadState(LoadState.Error(it)) }
-                .launchIn(viewModelScope)
+                .collect()
         }
     }
 
@@ -45,7 +45,7 @@ class GroupViewModel(
                 .onEach { mutableGroupList.emit(it) }
                 .onCompletion { updateLoadState(LoadState.Complete) }
                 .catch { updateLoadState(LoadState.Error(it)) }
-                .launchIn(viewModelScope)
+                .collect()
         }
     }
 
@@ -65,4 +65,7 @@ class GroupViewModel(
         }
     }
 
+    companion object {
+        private const val TAG = "GroupViewModel"
+    }
 }

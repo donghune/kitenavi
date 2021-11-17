@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.github.donghune.kitenavi.domain.AddressRepository
-import com.github.donghune.kitenavi.model.client.RetrofitClient
+import com.github.donghune.kitenavi.model.network.client.RetrofitClient
 import com.github.donghune.kitenavi.model.local.AddressDatabase
-import com.github.donghune.kitenavi.model.response.Document
+import com.github.donghune.kitenavi.model.network.response.Document
 import com.github.donghune.kitenavi.view.BaseViewModel
 import com.github.donghune.kitenavi.view.LoadState
 import kotlinx.coroutines.flow.*

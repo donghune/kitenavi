@@ -2,8 +2,8 @@ package com.github.donghune.kitenavi.domain
 
 import com.github.donghune.kitenavi.model.local.Address
 import com.github.donghune.kitenavi.model.local.AddressDao
-import com.github.donghune.kitenavi.model.response.AddressSearchResponse
-import com.github.donghune.kitenavi.model.service.AddressService
+import com.github.donghune.kitenavi.model.network.response.AddressSearchResponse
+import com.github.donghune.kitenavi.model.network.service.AddressService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1012376233720",
+    "project_id": "static-forest-330520",
+    "storage_bucket": "static-forest-330520.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012376233720:android:15bfcb98e7a3a07bbafd0d",
+        "android_client_info": {
+          "package_name": "com.github.donghune.kitenavi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012376233720-dpetvrv0ovmjnh5c3a7hjo7g5knn319d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp5mbmSpUMIwLV9E5kIeBlQrTRDtAdVBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012376233720-dpetvrv0ovmjnh5c3a7hjo7g5knn319d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

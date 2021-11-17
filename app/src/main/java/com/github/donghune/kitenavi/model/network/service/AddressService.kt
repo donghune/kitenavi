@@ -1,6 +1,6 @@
-package com.github.donghune.kitenavi.model.service
+package com.github.donghune.kitenavi.model.network.service
 
-import com.github.donghune.kitenavi.model.response.AddressSearchResponse
+import com.github.donghune.kitenavi.model.network.response.AddressSearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

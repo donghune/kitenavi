@@ -1,6 +1,6 @@
-package com.github.donghune.kitenavi.model.client
+package com.github.donghune.kitenavi.model.network.client
 
-import com.github.donghune.kitenavi.model.service.AddressService
+import com.github.donghune.kitenavi.model.network.service.AddressService
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

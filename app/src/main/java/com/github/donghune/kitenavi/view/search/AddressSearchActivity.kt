@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -16,10 +17,9 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
-import com.github.donghune.kitenavi.model.response.Document
+import com.github.donghune.kitenavi.model.network.response.Document
 import com.github.donghune.kitenavi.view.component.DoubleLineCard
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -57,7 +57,8 @@ class AddressSearchActivity : ComponentActivity() {
                             },
                             leadingIcon = {
                                 Icon(Icons.Filled.Search, "")
-                            }
+                            },
+                            singleLine = true
                         )
                     }
                 }

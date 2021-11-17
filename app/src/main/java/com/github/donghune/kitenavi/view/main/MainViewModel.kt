@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.github.donghune.kitenavi.domain.AddressRepository
 import com.github.donghune.kitenavi.domain.GroupRepository
-import com.github.donghune.kitenavi.model.client.RetrofitClient
+import com.github.donghune.kitenavi.model.network.client.RetrofitClient
 import com.github.donghune.kitenavi.model.local.Address
 import com.github.donghune.kitenavi.model.local.AddressDatabase
 import com.github.donghune.kitenavi.model.local.Group

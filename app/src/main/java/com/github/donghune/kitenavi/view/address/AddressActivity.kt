@@ -7,11 +7,14 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.lifecycleScope
@@ -58,7 +61,9 @@ class AddressActivity : ComponentActivity() {
                     }
                 }
             ) {
-                Column {
+                Column(
+                    modifier = Modifier.verticalScroll(ScrollState(0))
+                ) {
                     addressList.value.forEach {
                         AddressCard(address = it) {
                             viewModel.removeAddress(it)

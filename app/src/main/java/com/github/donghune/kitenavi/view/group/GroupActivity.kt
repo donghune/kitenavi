@@ -3,6 +3,7 @@ package com.github.donghune.kitenavi.view.group
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,18 +13,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.github.donghune.kitenavi.R
 import com.github.donghune.kitenavi.model.local.Group
 import com.github.donghune.kitenavi.view.address.AddressActivity
 import com.github.donghune.kitenavi.view.component.DoubleLineCard
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class GroupActivity : ComponentActivity() {
 
@@ -32,12 +31,15 @@ class GroupActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val openDialog = remember { mutableStateOf(false) }
-            val groupList = remember { mutableStateOf(listOf<Group>()) }
+            val openDialog = rememberSaveable { mutableStateOf(false) }
+            val groupList by viewModel.groupList.collectAsState()
 
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.groupList.collect { groupList.value = it }
+            lifecycleScope.launchWhenResumed {
+                viewModel.loadState.collect {
+                    Log.d(TAG, "onCreate: it=[$it]")
+                }
+                viewModel.loadState.collect {
+                    Log.d(TAG, "onCreate2: it=[$it]")
                 }
             }
 
@@ -62,21 +64,8 @@ class GroupActivity : ComponentActivity() {
                     }
                 }
             ) {
-                Column(
-                    modifier = Modifier.verticalScroll(ScrollState(0))
-                ) {
-                    groupList.value.forEach {
-                        GroupCard(group = it) {
-                            viewModel.removeGroup(it)
-                            viewModel.fetchGroupList()
-                            Toast.makeText(
-                                this@GroupActivity,
-                                "그룹을 삭제하였습니다.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                }
+                GroupList(groupList)
+
                 if (openDialog.value) {
                     GroupInsertDialog(openDialog)
                 }
@@ -85,7 +74,20 @@ class GroupActivity : ComponentActivity() {
     }
 
     @Composable
-    fun GroupCard(group: Group, deleteButtonClick: () -> Unit) {
+    fun GroupList(
+        groupList: List<Group>
+    ) {
+        Column(
+            modifier = Modifier.verticalScroll(ScrollState(0))
+        ) {
+            groupList.forEach {
+                GroupCard(group = it)
+            }
+        }
+    }
+
+    @Composable
+    fun GroupCard(group: Group) {
         DoubleLineCard(
             title = group.id.toString(),
             text = group.name,
@@ -93,7 +95,15 @@ class GroupActivity : ComponentActivity() {
                 AddressActivity.startActivity(this@GroupActivity, group.id)
             },
             buttonName = "삭제",
-            buttonClick = deleteButtonClick
+            buttonClick = {
+                viewModel.removeGroup(group)
+                viewModel.fetchGroupList()
+                Toast.makeText(
+                    this@GroupActivity,
+                    "그룹을 삭제하였습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         )
     }
 
@@ -117,11 +127,13 @@ class GroupActivity : ComponentActivity() {
                 )
             },
             confirmButton = {
-                Button(onClick = {
-                    viewModel.insertGroup(input.value)
-                    viewModel.fetchGroupList()
-                    dialogVisible.value = false
-                }) {
+                Button(
+                    onClick = {
+                        viewModel.insertGroup(input.value)
+                        viewModel.fetchGroupList()
+                        dialogVisible.value = false
+                    }
+                ) {
                     Text(text = "확인")
                 }
             }
@@ -132,5 +144,7 @@ class GroupActivity : ComponentActivity() {
         fun startActivity(context: Context) {
             context.startActivity(Intent(context, GroupActivity::class.java))
         }
+
+        private val TAG = "GroupActivity"
     }
 }

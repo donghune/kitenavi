@@ -3,7 +3,7 @@ package com.github.donghune.kitenavi.view.address
 import android.content.Context
 import androidx.lifecycle.*
 import com.github.donghune.kitenavi.domain.AddressRepository
-import com.github.donghune.kitenavi.model.client.RetrofitClient
+import com.github.donghune.kitenavi.model.network.client.RetrofitClient
 import com.github.donghune.kitenavi.model.local.Address
 import com.github.donghune.kitenavi.model.local.AddressDatabase
 import com.github.donghune.kitenavi.view.BaseViewModel

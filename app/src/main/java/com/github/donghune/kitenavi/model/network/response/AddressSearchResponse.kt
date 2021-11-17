@@ -1,4 +1,4 @@
-package com.github.donghune.kitenavi.model.response
+package com.github.donghune.kitenavi.model.network.response
 
 data class AddressSearchResponse(
     val documents: List<Document>,
