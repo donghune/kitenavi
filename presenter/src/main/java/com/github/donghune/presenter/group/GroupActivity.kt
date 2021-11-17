@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
@@ -22,11 +23,13 @@ import com.github.donghune.domain.entity.Group
 import com.github.donghune.presenter.R
 import com.github.donghune.presenter.address.AddressActivity
 import com.github.donghune.presenter.component.DoubleLineCard
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
+@AndroidEntryPoint
 class GroupActivity : ComponentActivity() {
 
-    private val viewModel by lazy { GroupViewModel.Factory(applicationContext).build() }
+    private val viewModel: GroupViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

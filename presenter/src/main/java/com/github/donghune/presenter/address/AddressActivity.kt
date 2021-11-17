@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
@@ -22,12 +23,14 @@ import com.github.donghune.domain.entity.Address
 import com.github.donghune.presenter.R
 import com.github.donghune.presenter.component.DoubleLineCard
 import com.github.donghune.presenter.search.AddressSearchActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class AddressActivity : ComponentActivity() {
 
-    private val viewModel by lazy { AddressViewModel.Factory(this).build() }
+    private val viewModel: AddressViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

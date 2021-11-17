@@ -8,8 +8,9 @@ import com.github.donghune.domain.entity.Group
 import com.github.donghune.domain.repository.GroupRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class GroupRepositoryImpl(
+class GroupRepositoryImpl @Inject constructor(
     private val groupDao: GroupDao
 ) : GroupRepository {
     override suspend fun insertGroup(groupName: String): Flow<Unit> {

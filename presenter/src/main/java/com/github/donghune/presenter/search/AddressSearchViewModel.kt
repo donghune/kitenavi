@@ -1,19 +1,17 @@
 package com.github.donghune.presenter.search
 
-import android.content.Context
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.github.donghune.data.network.client.RetrofitClient
 import com.github.donghune.domain.entity.Address
 import com.github.donghune.domain.repository.AddressRepository
-import com.github.donghune.kitenavi.model.local.AddressDatabase
 import com.github.donghune.kitenavi.view.BaseViewModel
 import com.github.donghune.kitenavi.view.LoadState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddressSearchViewModel(
+@HiltViewModel
+class AddressSearchViewModel @Inject constructor(
     private val addressRepository: AddressRepository
 ) : BaseViewModel() {
 
@@ -44,23 +42,6 @@ class AddressSearchViewModel(
                 .onCompletion { updateLoadState(LoadState.Complete) }
                 .catch { updateLoadState(LoadState.Error(it)) }
                 .launchIn(viewModelScope)
-        }
-    }
-
-    class Factory(
-        private val applicationContext: Context
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return AddressSearchViewModel(
-                AddressRepository(
-                    AddressDatabase.getInstance(applicationContext).addressDao(),
-                    RetrofitClient.addressService
-                )
-            ) as T
-        }
-
-        fun build(): AddressSearchViewModel {
-            return create(AddressSearchViewModel::class.java)
         }
     }
 }

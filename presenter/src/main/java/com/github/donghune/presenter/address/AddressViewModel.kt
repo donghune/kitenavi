@@ -1,18 +1,17 @@
 package com.github.donghune.presenter.address
 
-import android.content.Context
-import androidx.lifecycle.*
-import com.github.donghune.domain.repository.AddressRepository
-import com.github.donghune.data.network.client.RetrofitClient
+import androidx.lifecycle.viewModelScope
 import com.github.donghune.domain.entity.Address
-import com.github.donghune.kitenavi.model.local.Address
-import com.github.donghune.kitenavi.model.local.AddressDatabase
+import com.github.donghune.domain.repository.AddressRepository
 import com.github.donghune.kitenavi.view.BaseViewModel
 import com.github.donghune.kitenavi.view.LoadState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddressViewModel(
+@HiltViewModel
+class AddressViewModel @Inject constructor(
     private val addressRepository: AddressRepository
 ) : BaseViewModel() {
 
@@ -41,18 +40,4 @@ class AddressViewModel(
         }
     }
 
-    class Factory(
-        private val applicationContext: Context
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return AddressViewModel(
-                AddressRepository(
-                    AddressDatabase.getInstance(applicationContext).addressDao(),
-                    RetrofitClient.addressService
-                )
-            ) as T
-        }
-
-        fun build() = create(AddressViewModel::class.java)
-    }
 }

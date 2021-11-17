@@ -1,10 +1,8 @@
 package com.github.donghune.presenter.group
 
-import android.content.Context
-import androidx.lifecycle.*
+import androidx.lifecycle.viewModelScope
 import com.github.donghune.domain.entity.Group
 import com.github.donghune.domain.repository.GroupRepository
-import com.github.donghune.kitenavi.model.local.AddressDatabase
 import com.github.donghune.kitenavi.view.BaseViewModel
 import com.github.donghune.kitenavi.view.LoadState
 import kotlinx.coroutines.flow.*
@@ -46,22 +44,6 @@ class GroupViewModel(
                 .onCompletion { updateLoadState(LoadState.Complete) }
                 .catch { updateLoadState(LoadState.Error(it)) }
                 .collect()
-        }
-    }
-
-    class Factory(private val applicationContext: Context) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return GroupViewModel(
-                GroupRepository(
-                    AddressDatabase.getInstance(
-                        applicationContext
-                    ).groupDao()
-                )
-            ) as T
-        }
-
-        fun build(): GroupViewModel {
-            return create(GroupViewModel::class.java)
         }
     }
 

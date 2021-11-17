@@ -9,8 +9,9 @@ import com.github.donghune.domain.entity.Address
 import com.github.donghune.domain.repository.AddressRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class AddressRepositoryImpl(
+class AddressRepositoryImpl @Inject constructor(
     private val addressDao: AddressDao,
     private val service: AddressService
 ) : AddressRepository {
