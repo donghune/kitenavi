@@ -8,3 +8,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "kitenavi"
 include ':app'
+include ':presenter'
+include ':domain'
+include ':data'
