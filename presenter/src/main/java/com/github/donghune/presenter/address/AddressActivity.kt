@@ -13,19 +13,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.lifecycle.lifecycleScope
 import com.github.donghune.domain.entity.Address
 import com.github.donghune.presenter.R
 import com.github.donghune.presenter.component.DoubleLineCard
 import com.github.donghune.presenter.search.AddressSearchActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddressActivity : ComponentActivity() {
@@ -36,14 +32,9 @@ class AddressActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val groupId = intent.getIntExtra(EXTRA_GROUP_ID, 0)
-            val addressList = remember { mutableStateOf(listOf<Address>()) }
+            val addressList = viewModel.addressList.collectAsState()
 
-            lifecycleScope.launch {
-                viewModel.fetchAddressList(groupId)
-                viewModel.addressList.collect {
-                    addressList.value = it
-                }
-            }
+            viewModel.fetchAddressList(groupId)
 
             Scaffold(
                 topBar = {

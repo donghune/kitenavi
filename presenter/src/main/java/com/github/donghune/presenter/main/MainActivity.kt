@@ -1,6 +1,7 @@
 package com.github.donghune.presenter.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -39,14 +41,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val mapView = rememberMapViewWithLifecycle()
-            val groupList = remember { mutableStateOf(listOf<Group>()) }
+            val groupList = viewModel.groupList.collectAsState()
             val expanded = remember { mutableStateOf(false) }
             val selectedGroup = remember { mutableStateOf<Group?>(null) }
             val groupChangeDialog = remember { mutableStateOf(false) }
 
-            lifecycleScope.launch {
-                viewModel.groupList.collect {
-                    groupList.value = it
+            lifecycleScope.launchWhenCreated {
+                viewModel.loadState.collect {
+                    Log.d(TAG, "onCreate: it=[$it]")
                 }
             }
 
@@ -138,7 +140,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun GroupListAlertDialog(
         isVisible: MutableState<Boolean>,
-        groupList: MutableState<List<Group>>,
+        groupList: State<List<Group>>,
         onItemClick: (Group) -> Unit
     ) {
         AlertDialog(

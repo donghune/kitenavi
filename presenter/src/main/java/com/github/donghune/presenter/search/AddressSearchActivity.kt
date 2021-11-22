@@ -14,17 +14,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.lifecycleScope
 import com.github.donghune.domain.entity.Address
 import com.github.donghune.presenter.component.DoubleLineCard
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddressSearchActivity : ComponentActivity() {
@@ -37,13 +31,7 @@ class AddressSearchActivity : ComponentActivity() {
             val groupId = intent.getIntExtra(EXTRA_GROUP_ID, 0)
 
             val textField = remember { mutableStateOf("낙성대역 18길") }
-            val searchResult = remember { mutableStateOf(listOf<Address>()) }
-
-            lifecycleScope.launch {
-                viewModel.queryResult.collect {
-                    searchResult.value = it
-                }
-            }
+            val searchResult = viewModel.queryResult.collectAsState()
 
             Scaffold(
                 topBar = {

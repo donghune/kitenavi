@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Database(entities = [GroupEntity::class, AddressEntity::class], version = 1)
 abstract class AddressDatabase : RoomDatabase() {

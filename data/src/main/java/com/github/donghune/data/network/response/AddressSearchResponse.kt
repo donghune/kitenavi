@@ -4,7 +4,7 @@ import com.github.donghune.domain.entity.Address
 import com.google.gson.annotations.SerializedName
 
 data class AddressSearchResponse(
-    @SerializedName("document") val document: List<DocumentResponse>
+    @SerializedName("documents") val document: List<DocumentResponse>
 )
 
 fun DocumentResponse.toAddress(): Address {

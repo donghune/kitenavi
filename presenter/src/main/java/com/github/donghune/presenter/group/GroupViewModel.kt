@@ -5,10 +5,13 @@ import com.github.donghune.domain.entity.Group
 import com.github.donghune.domain.repository.GroupRepository
 import com.github.donghune.kitenavi.view.BaseViewModel
 import com.github.donghune.kitenavi.view.LoadState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class GroupViewModel(
+@HiltViewModel
+class GroupViewModel @Inject constructor(
     private val groupRepository: GroupRepository
 ) : BaseViewModel() {
 

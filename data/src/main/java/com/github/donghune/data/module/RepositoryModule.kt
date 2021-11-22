@@ -5,6 +5,8 @@ import com.github.donghune.data.local.GroupDao
 import com.github.donghune.data.network.service.AddressService
 import com.github.donghune.data.repository.AddressRepositoryImpl
 import com.github.donghune.data.repository.GroupRepositoryImpl
+import com.github.donghune.domain.repository.AddressRepository
+import com.github.donghune.domain.repository.GroupRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +19,7 @@ object RepositoryModule {
     fun provideAddressRepository(
         addressDao: AddressDao,
         addressService: AddressService
-    ): AddressRepositoryImpl {
+    ): AddressRepository {
         return AddressRepositoryImpl(
             addressDao,
             addressService
@@ -27,7 +29,7 @@ object RepositoryModule {
     @Provides
     fun provideGroupRepository(
         groupDao: GroupDao
-    ): GroupRepositoryImpl {
+    ): GroupRepository {
         return GroupRepositoryImpl(
             groupDao
         )
